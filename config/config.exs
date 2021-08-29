@@ -9,7 +9,13 @@ import Config
 
 config :example_16,
   ecto_repos: [Example16.Repo],
-  generators: [binary_id: true]
+  generators: [
+    binary_id: true, sample_binary_id: "01BADBEEFBADBEEFBADBEEFBAD"
+  ]
+
+# Configures database migration defaults
+config :example_16, Example16.Repo,
+  migration_primary_key: [name: :id, type: :binary_id]
 
 # Configures the endpoint
 config :example_16, Example16Web.Endpoint,
