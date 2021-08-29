@@ -15,7 +15,8 @@ config :example_16,
 
 # Configures database migration defaults
 config :example_16, Example16.Repo,
-  migration_primary_key: [name: :id, type: :binary_id]
+  migration_primary_key: [name: :id, type: :binary_id],
+  migration_timestamps: [type: :utc_datetime_usec]
 
 # Configures the endpoint
 config :example_16, Example16Web.Endpoint,

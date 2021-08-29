@@ -1,13 +1,15 @@
 defmodule Example16.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
-  @primary_key {:id, :binary_id, autogenerate: true}
-  @foreign_key_type :binary_id
+
+  @primary_key {:id, Ecto.ULID, autogenerate: true}
+  @foreign_key_type Ecto.ULID
+  @timestamps_opts [type: :utc_datetime_usec]
   schema "users" do
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
-    field :confirmed_at, :naive_datetime
+    field :confirmed_at, :utc_datetime_usec
 
     timestamps()
   end
