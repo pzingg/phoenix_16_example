@@ -6,12 +6,23 @@ defmodule Example16.Accounts.User do
   @foreign_key_type Ecto.ULID
   @timestamps_opts [type: :utc_datetime_usec]
   schema "users" do
-    field :email, :string
+    field :email, :string, read_after_writes: true
+    field :first_name, :string, read_after_writes: true
+    field :last_name, :string, read_after_writes: true
+    field :company, :string, read_after_writes: true
+    field :permissions, :map, null: false, redact: true, read_after_writes: true
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :utc_datetime_usec
 
     timestamps()
+  end
+
+  @doc """
+  SELECT * FROM users WHERE CAST(permissions ->> 'admin' AS BOOLEAN) = FALSE
+  """
+  def is_admin?(user) do
+    Map.get(user.permissions, "admin", false)
   end
 
   @doc """
@@ -36,6 +47,7 @@ defmodule Example16.Accounts.User do
     |> cast(attrs, [:email, :password])
     |> validate_email()
     |> validate_password(opts)
+    |> maybe_set_permissions(opts)
   end
 
   defp validate_email(changeset) do
@@ -65,6 +77,15 @@ defmodule Example16.Accounts.User do
       changeset
       |> put_change(:hashed_password, Bcrypt.hash_pwd_salt(password))
       |> delete_change(:password)
+    else
+      changeset
+    end
+  end
+
+  defp maybe_set_permissions(changeset, opts) do
+    if Keyword.has_key?(opts, :set_permissions) do
+      changeset
+      |> put_change(:permissions, Keyword.get(opts, :set_permissions))
     else
       changeset
     end
@@ -102,6 +123,14 @@ defmodule Example16.Accounts.User do
     |> cast(attrs, [:password])
     |> validate_confirmation(:password, message: "does not match password")
     |> validate_password(opts)
+  end
+
+  @doc """
+  A user changeset for changing profile information.
+  """
+  def profile_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:first_name, :last_name, :company])
   end
 
   @doc """

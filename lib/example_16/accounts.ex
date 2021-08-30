@@ -76,7 +76,7 @@ defmodule Example16.Accounts do
   """
   def register_user(attrs) do
     %User{}
-    |> User.registration_changeset(attrs)
+    |> User.registration_changeset(attrs, set_permissions: %{admin: true})
     |> Repo.insert()
   end
 
@@ -210,6 +210,35 @@ defmodule Example16.Accounts do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
     end
+  end
+
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for changing the user profile.
+
+  ## Examples
+
+      iex> change_user_profile(user)
+      %Ecto.Changeset{data: %User{}}
+
+  """
+  def change_user_profile(user, attrs \\ %{}) do
+    User.profile_changeset(user, attrs)
+  end
+
+  @doc """
+  Updates the user profile.
+
+  ## Examples
+
+      iex> update_user_profile(user, %{first_name: ...})
+      {:ok, %User{}}
+
+  """
+  def update_user_profile(user, attrs) do
+    user
+    |> User.profile_changeset(attrs)
+    |> Repo.update()
   end
 
   ## Session
