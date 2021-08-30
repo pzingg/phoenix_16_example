@@ -9,7 +9,7 @@ defmodule Example16.Repo.Migrations.CreateUsersAuthTables do
       add :first_name, :string
       add :last_name, :string
       add :company, :string
-      add :permissions, :map, null: false
+      add :roles, {:array, :string}, null: false
       add :email, :citext, null: false
       add :hashed_password, :string, null: false
       add :confirmed_at, :utc_datetime_usec

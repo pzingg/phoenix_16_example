@@ -5,8 +5,19 @@ defmodule Example16.Application do
 
   use Application
 
+  require Logger
+
+  alias Example16.Accounts.RBAC
+
   @impl true
   def start(_type, _args) do
+    # Initialize RBAC roles cache
+    # See https://github.com/dwyl/rbac
+    roles_file = Path.join(:code.priv_dir(:example_16), "rbac.json")
+    RBAC.init_roles_cache(roles_file)
+
+    Logger.info("roles cache: #{inspect(RBAC.list_approles())}")
+
     children = [
       # Start the Ecto repository
       Example16.Repo,

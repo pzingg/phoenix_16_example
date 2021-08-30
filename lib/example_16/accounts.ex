@@ -76,7 +76,7 @@ defmodule Example16.Accounts do
   """
   def register_user(attrs) do
     %User{}
-    |> User.registration_changeset(attrs, set_permissions: %{admin: true})
+    |> User.registration_changeset(attrs, set_roles: "admin")
     |> Repo.insert()
   end
 

@@ -2,6 +2,8 @@ defmodule Example16.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Example16.Accounts.RBAC
+
   @primary_key {:id, Ecto.ULID, autogenerate: true}
   @foreign_key_type Ecto.ULID
   @timestamps_opts [type: :utc_datetime_usec]
@@ -10,7 +12,7 @@ defmodule Example16.Accounts.User do
     field :first_name, :string, read_after_writes: true
     field :last_name, :string, read_after_writes: true
     field :company, :string, read_after_writes: true
-    field :permissions, :map, null: false, redact: true, read_after_writes: true
+    field :roles, {:array, :string}, null: false, redact: true, read_after_writes: true
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :utc_datetime_usec
@@ -19,10 +21,15 @@ defmodule Example16.Accounts.User do
   end
 
   @doc """
-  SELECT * FROM users WHERE CAST(permissions ->> 'admin' AS BOOLEAN) = FALSE
+  For PostgreSQL :json (Ecto :map type):
+  SELECT * FROM users WHERE FALSE = CAST(roles ->> 'admin' AS BOOLEAN);
+
+  For PostgreSQL :array type, if role "1" is admin,
+  SELECT * FROM users WHERE 1 = ANY(roles);
   """
   def is_admin?(user) do
-    Map.get(user.permissions, "admin", false)
+    # Map.get(user.roles, "admin", false)
+    Enum.member?(user.roles, "admin")
   end
 
   @doc """
@@ -47,7 +54,7 @@ defmodule Example16.Accounts.User do
     |> cast(attrs, [:email, :password])
     |> validate_email()
     |> validate_password(opts)
-    |> maybe_set_permissions(opts)
+    |> maybe_set_roles(opts)
   end
 
   defp validate_email(changeset) do
@@ -82,10 +89,13 @@ defmodule Example16.Accounts.User do
     end
   end
 
-  defp maybe_set_permissions(changeset, opts) do
-    if Keyword.has_key?(opts, :set_permissions) do
+  defp maybe_set_roles(changeset, opts) do
+    if Keyword.has_key?(opts, :set_roles) do
+      role_names =
+        RBAC.valid_roles(Keyword.get(opts, :set_roles))
+        |> Enum.map(fn role -> role.name end)
       changeset
-      |> put_change(:permissions, Keyword.get(opts, :set_permissions))
+      |> put_change(:roles, role_names)
     else
       changeset
     end
