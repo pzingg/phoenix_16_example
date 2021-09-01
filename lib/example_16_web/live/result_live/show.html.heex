@@ -1,0 +1,42 @@
+<h1>Show Result</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal Example16Web.ResultLive.FormComponent,
+    id: @result.id,
+    title: @page_title,
+    action: @live_action,
+    result: @result,
+    return_to: Routes.result_show_path(@socket, :show, @result) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @result.type %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @result.description %>
+  </li>
+
+  <li>
+    <strong>Generation:</strong>
+    <%= @result.generation %>
+  </li>
+
+  <li>
+    <strong>Data:</strong>
+    <%= Jason.encode!(@result.data) %>
+  </li>
+
+  <li>
+    <strong>Errors:</strong>
+    <%= Jason.encode!(@result.errors) %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.result_show_path(@socket, :edit, @result), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.result_index_path(@socket, :index) %></span>

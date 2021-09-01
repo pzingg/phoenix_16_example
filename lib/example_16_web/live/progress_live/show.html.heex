@@ -1,0 +1,37 @@
+<h1>Show Progress</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal Example16Web.ProgressLive.FormComponent,
+    id: @progress.id,
+    title: @page_title,
+    action: @live_action,
+    progress: @progress,
+    return_to: Routes.progress_show_path(@socket, :show, @progress) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @progress.status %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @progress.description %>
+  </li>
+
+  <li>
+    <strong>Completed:</strong>
+    <%= @progress.completed %>
+  </li>
+
+  <li>
+    <strong>Total:</strong>
+    <%= @progress.total %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.progress_show_path(@socket, :edit, @progress), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.progress_index_path(@socket, :index) %></span>

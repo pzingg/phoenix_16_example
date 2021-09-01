@@ -1,0 +1,41 @@
+<h1>Listing Progress</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal Example16Web.ProgressLive.FormComponent,
+    id: @progress.id || :new,
+    title: @page_title,
+    action: @live_action,
+    progress: @progress,
+    return_to: Routes.progress_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Description</th>
+      <th>Completed</th>
+      <th>Total</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="progress">
+    <%= for progress <- @progress_collection do %>
+      <tr id={"progress-#{progress.id}"}>
+        <td><%= progress.status %></td>
+        <td><%= progress.description %></td>
+        <td><%= progress.completed %></td>
+        <td><%= progress.total %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.progress_show_path(@socket, :show, progress) %></span>
+          <span><%= live_patch "Edit", to: Routes.progress_index_path(@socket, :edit, progress) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: progress.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Progress", to: Routes.progress_index_path(@socket, :new) %></span>

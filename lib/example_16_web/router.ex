@@ -77,6 +77,34 @@ defmodule Example16Web.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+    live "/projects", ProjectLive.Index, :index
+    live "/projects/new", ProjectLive.Index, :new
+    live "/projects/:id/edit", ProjectLive.Index, :edit
+
+    live "/projects/:id", ProjectLive.Show, :show
+    live "/projects/:id/show/edit", ProjectLive.Show, :edit
+
+    live "/tasks", TaskLive.Index, :index
+    live "/tasks/new", TaskLive.Index, :new
+    live "/tasks/:id/edit", TaskLive.Index, :edit
+
+    live "/tasks/:id", TaskLive.Show, :show
+    live "/tasks/:id/show/edit", TaskLive.Show, :edit
+
+    live "/progress", ProgressLive.Index, :index
+    live "/progress/new", ProgressLive.Index, :new
+    live "/progress/:id/edit", ProgressLive.Index, :edit
+
+    live "/progress/:id", ProgressLive.Show, :show
+    live "/progress/:id/show/edit", ProgressLive.Show, :edit
+
+    live "/results", ResultLive.Index, :index
+    live "/results/new", ResultLive.Index, :new
+    live "/results/:id/edit", ResultLive.Index, :edit
+
+    live "/results/:id", ResultLive.Show, :show
+    live "/results/:id/show/edit", ResultLive.Show, :edit
   end
 
   scope "/", Example16Web do

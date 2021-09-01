@@ -1,0 +1,52 @@
+<h1>Show Project</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal Example16Web.ProjectLive.FormComponent,
+    id: @project.id,
+    title: @page_title,
+    action: @live_action,
+    project: @project,
+    return_to: Routes.project_show_path(@socket, :show, @project) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @project.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @project.description %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @project.type %>
+  </li>
+
+  <li>
+    <strong>Design cost:</strong>
+    <%= @project.design_cost %>
+  </li>
+
+  <li>
+    <strong>Generation:</strong>
+    <%= @project.generation %>
+  </li>
+
+  <li>
+    <strong>Remaining:</strong>
+    <%= @project.remaining %>
+  </li>
+
+  <li>
+    <strong>Completed?:</strong>
+    <%= @project.completed? %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.project_show_path(@socket, :edit, @project), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.project_index_path(@socket, :index) %></span>

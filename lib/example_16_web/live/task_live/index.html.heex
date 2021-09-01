@@ -1,0 +1,47 @@
+<h1>Listing Tasks</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal Example16Web.TaskLive.FormComponent,
+    id: @task.id || :new,
+    title: @page_title,
+    action: @live_action,
+    task: @task,
+    return_to: Routes.task_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Generation</th>
+      <th>Status</th>
+      <th>Started at</th>
+      <th>Cancelled at</th>
+      <th>Completed at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="tasks">
+    <%= for task <- @tasks do %>
+      <tr id={"task-#{task.id}"}>
+        <td><%= task.type %></td>
+        <td><%= task.description %></td>
+        <td><%= task.generation %></td>
+        <td><%= task.status %></td>
+        <td><%= task.started_at %></td>
+        <td><%= task.cancelled_at %></td>
+        <td><%= task.completed_at %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.task_show_path(@socket, :show, task) %></span>
+          <span><%= live_patch "Edit", to: Routes.task_index_path(@socket, :edit, task) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: task.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Task", to: Routes.task_index_path(@socket, :new) %></span>
