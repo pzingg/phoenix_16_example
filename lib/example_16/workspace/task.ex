@@ -22,6 +22,12 @@ defmodule Example16.Workspace.Task do
   def changeset(task, attrs) do
     task
     |> cast(attrs, [:type, :description, :generation, :status, :started_at, :cancelled_at, :completed_at])
-    |> validate_required([:type, :description, :generation, :status, :started_at, :cancelled_at, :completed_at])
+    |> validate_required([:type, :description, :generation, :status])
+    |> local_to_utc([:started_at, :cancelled_at, :completed_at])
+  end
+
+  defp local_to_utc(changeset, _fields) do
+    # TODO: get timezone from changeset and convert from naive to UTC
+    changeset
   end
 end

@@ -6,20 +6,16 @@ defmodule Example16Web.ResultLiveTest do
 
   setup :register_and_log_in_user
 
-  @create_attrs %{data: %{}, description: "some description", errors: %{"0": %{
+  @errors Jason.encode!(%{"0": %{
     message: "some message",
     path: "some path",
     phase: "some phase",
     system: false,
     fatal: true
-  }}, generation: 42, type: "some type"}
-  @update_attrs %{data: %{}, description: "some updated description", errors: %{"0": %{
-    message: "some updated message",
-    path: "some updated path",
-    phase: "some updated phase",
-    system: false,
-    fatal: true
-  }}, generation: 43, type: "some updated type"}
+  }}, pretty: true)
+
+  @create_attrs %{data: "", description: "some description", errors: @errors, generation: 42, type: "some type"}
+  @update_attrs %{data: "", description: "some updated description", errors: @errors, generation: 43, type: "some updated type"}
   @invalid_attrs %{data: nil, description: nil, errors: nil, generation: nil, type: nil}
 
   defp create_result(_) do

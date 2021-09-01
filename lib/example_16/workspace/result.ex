@@ -9,9 +9,7 @@ defmodule Example16.Workspace.Result do
     field :type, :string
     field :description, :string
     field :generation, :integer
-    field :data_json, :string, virtual: true
     field :data, :map
-    field :errors_json, :string, virtual: true
     field :errors, :map
     belongs_to :project, Example16.Workspace.Project
     belongs_to :task, Example16.Workspace.Task
@@ -22,38 +20,26 @@ defmodule Example16.Workspace.Result do
   @doc false
   def changeset(result, attrs) do
     result
-    |> cast(attrs, [:type, :description, :generation, :data_json, :errors_json])
+    |> cast(attrs, [:type, :description, :generation, :data, :errors])
     |> validate_required([:type, :description, :generation])
-    |> encode_data()
-    |> encode_errors()
+    # |> encode_json_maps([:data, :errors])
   end
 
-  def encode_data(changeset) do
-      case Ecto.Changeset.get_field(changeset, :data_json) do
-        nil ->
-          Ecto.Changeset.put_change(changeset, :data, %{})
-        str ->
-          case Jason.decode(str, keys: :atoms) do
-            {:ok, decoded} when is_map(decoded) ->
-              Ecto.Changeset.put_change(changeset, :data, decoded)
-            _ ->
-              Ecto.Changeset.add_error(changeset, :data, "must be valid JSON object")
-          end
-      end
+  def encode_json_maps(changeset, fields) do
+    Enum.reduce(fields, changeset, &encode_json_map(&2, &1))
   end
 
-  def encode_errors(changeset) do
-    case Ecto.Changeset.get_field(changeset, :errors_json) do
+  def encode_json_map(changeset, field) do
+    case Ecto.Changeset.get_field(changeset, field) do
       nil ->
-        Ecto.Changeset.put_change(changeset, :errors, %{})
+        Ecto.Changeset.put_change(changeset, field, %{})
       str ->
-        case Jason.decode(str, keys: :atoms) do
+        case Jason.decode(str, keys: :strings) do
           {:ok, decoded} when is_map(decoded) ->
-            Ecto.Changeset.put_change(changeset, :errors, decoded)
+            Ecto.Changeset.put_change(changeset, field, decoded)
           _ ->
-            Ecto.Changeset.add_error(changeset, :errors, "must be valid JSON object")
+            Ecto.Changeset.add_error(changeset, field, "must be valid JSON object")
         end
     end
   end
-
 end

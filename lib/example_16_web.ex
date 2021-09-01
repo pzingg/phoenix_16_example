@@ -88,6 +88,7 @@ defmodule Example16Web do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
+      import Example16Web.InputHelpers
       import Example16Web.ErrorHelpers
       import Example16Web.Gettext
       alias Example16Web.Router.Helpers, as: Routes

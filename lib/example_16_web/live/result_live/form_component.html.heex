@@ -21,13 +21,13 @@
     <%= number_input f, :generation %>
     <%= error_tag f, :generation %>
 
-    <%= label f, :data_json %>
-    <%= text_input f, :data_json %>
-    <%= error_tag f, :data_json %>
+    <%= label f, :data %>
+    <%= textarea f, :data, value: json_encoded(@changeset, :data) %>
+    <%= error_tag f, :data %>
 
-    <%= label f, :errors_json %>
-    <%= text_input f, :errors_json %>
-    <%= error_tag f, :errors_json %>
+    <%= label f, :errors %>
+    <%= textarea f, :errors, value: json_encoded(@changeset, :data) %>
+    <%= error_tag f, :errors %>
 
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>

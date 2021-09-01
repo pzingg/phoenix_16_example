@@ -53,12 +53,12 @@ defmodule Example16.WorkspaceFixtures do
       |> Enum.into(%{
         data: %{},
         description: "some description",
-        errors: %{"0": %{
-          message: "some message",
-          path: "some path",
-          phase: "some phase",
-          system: false,
-          fatal: true
+        errors: %{"0" => %{
+          "message" => "some message",
+          "path" => "some path",
+          "phase" => "some phase",
+          "system" => false,
+          "fatal" => true
         }},
         generation: 42,
         type: "some type"

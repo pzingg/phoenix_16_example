@@ -49,6 +49,7 @@ defmodule Example16.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
+      {:timex, "~> 3.7"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"}
     ]
