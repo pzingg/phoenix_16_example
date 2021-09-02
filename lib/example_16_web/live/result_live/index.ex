@@ -6,7 +6,10 @@ defmodule Example16Web.ResultLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :results, list_results())}
+    {:ok,
+     socket
+     |> default_assigns()
+     |> assign(:results, list_results())}
   end
 
   @impl true

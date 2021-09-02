@@ -6,12 +6,10 @@ defmodule Example16Web.TaskLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    # Javascript: Intl.DateTimeFormat().resolvedOptions().timeZone
-    # returned “America/Denver”
     {:ok,
      socket
-     |> assign(:tasks, list_tasks())
-     |> assign(:tz, "America/Los_Angeles")}
+     |> default_assigns()
+     |> assign(:tasks, list_tasks())}
   end
 
   @impl true

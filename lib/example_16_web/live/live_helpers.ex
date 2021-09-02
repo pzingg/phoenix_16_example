@@ -1,6 +1,8 @@
 defmodule Example16Web.LiveHelpers do
   import Phoenix.LiveView.Helpers
 
+  require Logger
+
   @doc """
   Renders a component inside the `Example16Web.ModalComponent` component.
 
@@ -19,5 +21,19 @@ defmodule Example16Web.LiveHelpers do
     path = Keyword.fetch!(opts, :return_to)
     modal_opts = [id: :modal, return_to: path, component: component, opts: opts]
     live_component(Example16Web.ModalComponent, modal_opts)
+  end
+
+  def default_assigns(socket) do
+    tz =
+      if Phoenix.LiveView.connected?(socket) do
+        params = Phoenix.LiveView.get_connect_params(socket)
+        # tz param is set in app.js
+        Logger.error("connect params #{inspect(params)}")
+        Map.get(params, "tz", "Etc/UTC")
+      else
+        "Etc/UTC"
+      end
+
+    socket |> Phoenix.LiveView.assign(:tz, tz)
   end
 end

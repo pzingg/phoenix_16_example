@@ -6,7 +6,10 @@ defmodule Example16Web.ProgressLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :progress_collection, list_progress())}
+    {:ok,
+     socket
+     |> default_assigns()
+     |> assign(:progress_collection, list_progress())}
   end
 
   @impl true

@@ -3,9 +3,11 @@ defmodule Example16Web.TaskLive.Show do
 
   alias Example16.Workspace
 
+  require Logger
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, socket |> default_assigns()}
   end
 
   @impl true
@@ -13,8 +15,7 @@ defmodule Example16Web.TaskLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:task, Workspace.get_task!(id))
-     |> assign(:tz, "America/Los_Angeles")}
+     |> assign(:task, Workspace.get_task!(id))}
   end
 
   defp page_title(:show), do: "Show Task"
