@@ -3,6 +3,8 @@ defmodule Example16Web.ResultLive.FormComponent do
 
   alias Example16.Workspace
 
+  require Logger
+
   @impl true
   def update(%{result: result} = assigns, socket) do
     changeset = Workspace.change_result(result)
@@ -36,6 +38,7 @@ defmodule Example16Web.ResultLive.FormComponent do
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        Logger.warn("update_result failed: #{inspect(changeset.errors)}")
         {:noreply, assign(socket, :changeset, changeset)}
     end
   end
@@ -49,6 +52,7 @@ defmodule Example16Web.ResultLive.FormComponent do
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        Logger.warn("create_result failed: #{inspect(changeset.errors)}")
         {:noreply, assign(socket, changeset: changeset)}
     end
   end

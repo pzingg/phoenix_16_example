@@ -26,7 +26,7 @@
     <%= error_tag f, :data %>
 
     <%= label f, :errors %>
-    <%= textarea f, :errors, value: json_encoded(@changeset, :data) %>
+    <%= textarea f, :errors, value: json_encoded(@changeset, :errors) %>
     <%= error_tag f, :errors %>
 
     <div>
