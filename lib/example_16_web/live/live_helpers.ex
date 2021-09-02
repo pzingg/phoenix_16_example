@@ -28,7 +28,6 @@ defmodule Example16Web.LiveHelpers do
       if Phoenix.LiveView.connected?(socket) do
         params = Phoenix.LiveView.get_connect_params(socket)
         # tz param is set in app.js
-        Logger.error("connect params #{inspect(params)}")
         Map.get(params, "tz", "Etc/UTC")
       else
         "Etc/UTC"

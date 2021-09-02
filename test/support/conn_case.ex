@@ -50,6 +50,16 @@ defmodule Example16Web.ConnCase do
     %{conn: log_in_user(conn, user), user: user}
   end
 
+  def set_time_zone(%{conn: conn}) do
+    %{conn: Phoenix.LiveViewTest.put_connect_params(conn, %{"tz" => "America/Los_Angeles"})}
+  end
+
+  def set_time_zone_and_log_in_user(%{conn: _conn} = config) do
+    config
+    |> set_time_zone()
+    |> register_and_log_in_user()
+  end
+
   @doc """
   Logs the given `user` into the `conn`.
 

@@ -18,7 +18,7 @@ defmodule Example16Web.ProgressLiveTest do
   }
   @invalid_attrs %{completed: nil, description: nil, status: nil, total: nil}
 
-  setup :register_and_log_in_user
+  setup :set_time_zone_and_log_in_user
 
   defp create_progress(_) do
     progress = progress_fixture()

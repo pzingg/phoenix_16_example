@@ -42,7 +42,7 @@ defmodule Example16Web.InputHelpers do
 
     case Timex.parse(dt_str, "{YYYY}-{0M}-{0D} {h24}:{m}:{s}") do
       {:ok, %NaiveDateTime{} = naive_datetime} ->
-        Logger.error("#{event} #{field} parsed naive #{dt_str}")
+        # Logger.error("#{event} #{field} parsed naive #{dt_str}")
 
         {:ok,
          naive_datetime
@@ -50,7 +50,7 @@ defmodule Example16Web.InputHelpers do
          |> Timex.to_datetime("Etc/UTC")}
 
       {:ok, %DateTime{} = datetime} ->
-        Logger.error("#{event} #{field} parsed tz #{dt_str}")
+        # Logger.error("#{event} #{field} parsed tz #{dt_str}")
 
         {:ok,
          datetime

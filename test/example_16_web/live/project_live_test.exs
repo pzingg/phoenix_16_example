@@ -32,7 +32,7 @@ defmodule Example16Web.ProjectLiveTest do
     type: nil
   }
 
-  setup :register_and_log_in_user
+  setup :set_time_zone_and_log_in_user
 
   defp create_project(_) do
     project = project_fixture()

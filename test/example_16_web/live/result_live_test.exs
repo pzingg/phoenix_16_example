@@ -4,7 +4,7 @@ defmodule Example16Web.ResultLiveTest do
   import Phoenix.LiveViewTest
   import Example16.WorkspaceFixtures
 
-  setup :register_and_log_in_user
+  setup :set_time_zone_and_log_in_user
 
   @errors Jason.encode!(
             %{
