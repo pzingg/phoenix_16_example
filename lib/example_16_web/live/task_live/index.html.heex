@@ -6,6 +6,7 @@
     title: @page_title,
     action: @live_action,
     task: @task,
+    tz: @tz,
     return_to: Routes.task_index_path(@socket, :index) %>
 <% end %>
 
@@ -30,9 +31,9 @@
         <td><%= task.description %></td>
         <td><%= task.generation %></td>
         <td><%= task.status %></td>
-        <td><%= task.started_at %></td>
-        <td><%= task.cancelled_at %></td>
-        <td><%= task.completed_at %></td>
+        <td><%= to_local_datetime(task.started_at, @tz) %></td>
+        <td><%= to_local_datetime(task.cancelled_at, @tz) %></td>
+        <td><%= to_local_datetime(task.completed_at, @tz) %></td>
 
         <td>
           <span><%= live_redirect "Show", to: Routes.task_show_path(@socket, :show, task) %></span>

@@ -8,7 +8,15 @@ defmodule Example16.WorkspaceTest do
 
     import Example16.WorkspaceFixtures
 
-    @invalid_attrs %{completed?: nil, description: nil, design_cost: nil, generation: nil, name: nil, remaining: nil, type: nil}
+    @invalid_attrs %{
+      completed?: nil,
+      description: nil,
+      design_cost: nil,
+      generation: nil,
+      name: nil,
+      remaining: nil,
+      type: nil
+    }
 
     test "list_projects/0 returns all projects" do
       project = project_fixture()
@@ -21,7 +29,15 @@ defmodule Example16.WorkspaceTest do
     end
 
     test "create_project/1 with valid data creates a project" do
-      valid_attrs = %{completed?: true, description: "some description", design_cost: "120.5", generation: 42, name: "some name", remaining: 42, type: "some type"}
+      valid_attrs = %{
+        completed?: true,
+        description: "some description",
+        design_cost: "120.5",
+        generation: 42,
+        name: "some name",
+        remaining: 42,
+        type: "some type"
+      }
 
       assert {:ok, %Project{} = project} = Workspace.create_project(valid_attrs)
       assert project.completed? == true
@@ -39,7 +55,16 @@ defmodule Example16.WorkspaceTest do
 
     test "update_project/2 with valid data updates the project" do
       project = project_fixture()
-      update_attrs = %{completed?: false, description: "some updated description", design_cost: "456.7", generation: 43, name: "some updated name", remaining: 43, type: "some updated type"}
+
+      update_attrs = %{
+        completed?: false,
+        description: "some updated description",
+        design_cost: "456.7",
+        generation: 43,
+        name: "some updated name",
+        remaining: 43,
+        type: "some updated type"
+      }
 
       assert {:ok, %Project{} = project} = Workspace.update_project(project, update_attrs)
       assert project.completed? == false
@@ -74,7 +99,15 @@ defmodule Example16.WorkspaceTest do
 
     import Example16.WorkspaceFixtures
 
-    @invalid_attrs %{cancelled_at: nil, completed_at: nil, description: nil, generation: nil, started_at: nil, status: nil, type: nil}
+    @invalid_attrs %{
+      cancelled_at: nil,
+      completed_at: nil,
+      description: nil,
+      generation: nil,
+      started_at: nil,
+      status: nil,
+      type: nil
+    }
 
     test "list_tasks/0 returns all tasks" do
       task = task_fixture()
@@ -87,7 +120,15 @@ defmodule Example16.WorkspaceTest do
     end
 
     test "create_task/1 with valid data creates a task" do
-      valid_attrs = %{cancelled_at: ~U[2021-08-31 19:29:00.000000Z], completed_at: ~U[2021-08-31 19:29:00.000000Z], description: "some description", generation: 42, started_at: ~U[2021-08-31 19:29:00.000000Z], status: "some status", type: "some type"}
+      valid_attrs = %{
+        cancelled_at: ~U[2021-08-31 19:29:00.000000Z],
+        completed_at: ~U[2021-08-31 19:29:00.000000Z],
+        description: "some description",
+        generation: 42,
+        started_at: ~U[2021-08-31 19:29:00.000000Z],
+        status: "some status",
+        type: "some type"
+      }
 
       assert {:ok, %Task{} = task} = Workspace.create_task(valid_attrs)
       assert task.cancelled_at == ~U[2021-08-31 19:29:00.000000Z]
@@ -105,7 +146,16 @@ defmodule Example16.WorkspaceTest do
 
     test "update_task/2 with valid data updates the task" do
       task = task_fixture()
-      update_attrs = %{cancelled_at: ~U[2021-09-01 19:29:00.000000Z], completed_at: ~U[2021-09-01 19:29:00.000000Z], description: "some updated description", generation: 43, started_at: ~U[2021-09-01 19:29:00.000000Z], status: "some updated status", type: "some updated type"}
+
+      update_attrs = %{
+        cancelled_at: ~U[2021-09-01 19:29:00.000000Z],
+        completed_at: ~U[2021-09-01 19:29:00.000000Z],
+        description: "some updated description",
+        generation: 43,
+        started_at: ~U[2021-09-01 19:29:00.000000Z],
+        status: "some updated status",
+        type: "some updated type"
+      }
 
       assert {:ok, %Task{} = task} = Workspace.update_task(task, update_attrs)
       assert task.cancelled_at == ~U[2021-09-01 19:29:00.000000Z]
@@ -153,7 +203,13 @@ defmodule Example16.WorkspaceTest do
     end
 
     test "create_result/1 with valid data creates a result" do
-      valid_attrs = %{data: %{}, description: "some description", errors: %{}, generation: 42, type: "some type"}
+      valid_attrs = %{
+        data: %{},
+        description: "some description",
+        errors: %{},
+        generation: 42,
+        type: "some type"
+      }
 
       assert {:ok, %Result{} = result} = Workspace.create_result(valid_attrs)
       assert result.data == %{}
@@ -169,7 +225,14 @@ defmodule Example16.WorkspaceTest do
 
     test "update_result/2 with valid data updates the result" do
       result = result_fixture()
-      update_attrs = %{data: %{}, description: "some updated description", errors: %{}, generation: 43, type: "some updated type"}
+
+      update_attrs = %{
+        data: %{},
+        description: "some updated description",
+        errors: %{},
+        generation: 43,
+        type: "some updated type"
+      }
 
       assert {:ok, %Result{} = result} = Workspace.update_result(result, update_attrs)
       assert result.data == %{}
@@ -215,7 +278,12 @@ defmodule Example16.WorkspaceTest do
     end
 
     test "create_progress/1 with valid data creates a progress" do
-      valid_attrs = %{completed: 42, description: "some description", status: "some status", total: 42}
+      valid_attrs = %{
+        completed: 42,
+        description: "some description",
+        status: "some status",
+        total: 42
+      }
 
       assert {:ok, %Progress{} = progress} = Workspace.create_progress(valid_attrs)
       assert progress.completed == 42
@@ -230,7 +298,13 @@ defmodule Example16.WorkspaceTest do
 
     test "update_progress/2 with valid data updates the progress" do
       progress = progress_fixture()
-      update_attrs = %{completed: 43, description: "some updated description", status: "some updated status", total: 43}
+
+      update_attrs = %{
+        completed: 43,
+        description: "some updated description",
+        status: "some updated status",
+        total: 43
+      }
 
       assert {:ok, %Progress{} = progress} = Workspace.update_progress(progress, update_attrs)
       assert progress.completed == 43

@@ -94,6 +94,7 @@ defmodule Example16.Accounts.User do
       role_names =
         RBAC.valid_roles(Keyword.get(opts, :set_roles))
         |> Enum.map(fn role -> role.name end)
+
       changeset
       |> put_change(:roles, role_names)
     else
@@ -147,7 +148,8 @@ defmodule Example16.Accounts.User do
   Confirms the account by setting `confirmed_at`.
   """
   def confirm_changeset(user) do
-    now = DateTime.utc_now() # |> DateTime.truncate(:second)
+    # |> DateTime.truncate(:second)
+    now = DateTime.utc_now()
     change(user, confirmed_at: now)
   end
 

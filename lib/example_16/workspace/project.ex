@@ -21,7 +21,23 @@ defmodule Example16.Workspace.Project do
   @doc false
   def changeset(project, attrs) do
     project
-    |> cast(attrs, [:name, :description, :type, :design_cost, :generation, :remaining, :completed?])
-    |> validate_required([:name, :description, :type, :design_cost, :generation, :remaining, :completed?])
+    |> cast(attrs, [
+      :name,
+      :description,
+      :type,
+      :design_cost,
+      :generation,
+      :remaining,
+      :completed?
+    ])
+    |> validate_required([
+      :name,
+      :description,
+      :type,
+      :design_cost,
+      :generation,
+      :remaining,
+      :completed?
+    ])
   end
 end

@@ -6,7 +6,12 @@ defmodule Example16Web.TaskLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :tasks, list_tasks())}
+    # Javascript: Intl.DateTimeFormat().resolvedOptions().timeZone
+    # returned “America/Denver”
+    {:ok,
+     socket
+     |> assign(:tasks, list_tasks())
+     |> assign(:tz, "America/Los_Angeles")}
   end
 
   @impl true

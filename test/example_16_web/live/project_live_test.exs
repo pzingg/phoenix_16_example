@@ -4,9 +4,33 @@ defmodule Example16Web.ProjectLiveTest do
   import Phoenix.LiveViewTest
   import Example16.WorkspaceFixtures
 
-  @create_attrs %{completed?: true, description: "some description", design_cost: "120.5", generation: 42, name: "some name", remaining: 42, type: "some type"}
-  @update_attrs %{completed?: false, description: "some updated description", design_cost: "456.7", generation: 43, name: "some updated name", remaining: 43, type: "some updated type"}
-  @invalid_attrs %{completed?: false, description: nil, design_cost: nil, generation: nil, name: nil, remaining: nil, type: nil}
+  @create_attrs %{
+    completed?: true,
+    description: "some description",
+    design_cost: "120.5",
+    generation: 42,
+    name: "some name",
+    remaining: 42,
+    type: "some type"
+  }
+  @update_attrs %{
+    completed?: false,
+    description: "some updated description",
+    design_cost: "456.7",
+    generation: 43,
+    name: "some updated name",
+    remaining: 43,
+    type: "some updated type"
+  }
+  @invalid_attrs %{
+    completed?: false,
+    description: nil,
+    design_cost: nil,
+    generation: nil,
+    name: nil,
+    remaining: nil,
+    type: nil
+  }
 
   setup :register_and_log_in_user
 

@@ -212,7 +212,6 @@ defmodule Example16.Accounts do
     end
   end
 
-
   @doc """
   Returns an `%Ecto.Changeset{}` for changing the user profile.
 

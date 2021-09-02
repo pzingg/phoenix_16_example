@@ -4,8 +4,18 @@ defmodule Example16Web.ProgressLiveTest do
   import Phoenix.LiveViewTest
   import Example16.WorkspaceFixtures
 
-  @create_attrs %{completed: 42, description: "some description", status: "some status", total: 42}
-  @update_attrs %{completed: 43, description: "some updated description", status: "some updated status", total: 43}
+  @create_attrs %{
+    completed: 42,
+    description: "some description",
+    status: "some status",
+    total: 42
+  }
+  @update_attrs %{
+    completed: 43,
+    description: "some updated description",
+    status: "some updated status",
+    total: 43
+  }
   @invalid_attrs %{completed: nil, description: nil, status: nil, total: nil}
 
   setup :register_and_log_in_user

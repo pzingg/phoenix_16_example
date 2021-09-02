@@ -6,9 +6,31 @@ defmodule Example16Web.TaskLiveTest do
 
   setup :register_and_log_in_user
 
-  @create_attrs %{cancelled_at: ~N[2021-08-31 19:29:00], completed_at: ~N[2021-08-31 19:29:00], description: "some description", generation: 42, started_at: ~N[2021-08-31 19:29:00], status: "some status", type: "some type"}
-  @update_attrs %{cancelled_at: ~N[2021-09-01 19:29:00], completed_at: ~N[2021-09-01 19:29:00], description: "some updated description", generation: 43, status: "some updated status", type: "some updated type"}
-  @invalid_attrs %{cancelled_at: ~N[2021-08-31 19:29:00], description: nil, generation: nil, started_at: ~N[2021-08-31 19:29:00], status: nil, type: nil}
+  @create_attrs %{
+    cancelled_at: ~N[2021-08-31 19:29:00],
+    completed_at: ~N[2021-08-31 19:29:00],
+    description: "some description",
+    generation: 42,
+    started_at: ~N[2021-08-31 19:29:00],
+    status: "some status",
+    type: "some type"
+  }
+  @update_attrs %{
+    cancelled_at: ~N[2021-09-01 19:29:00],
+    completed_at: ~N[2021-09-01 19:29:00],
+    description: "some updated description",
+    generation: 43,
+    status: "some updated status",
+    type: "some updated type"
+  }
+  @invalid_attrs %{
+    cancelled_at: ~N[2021-08-31 19:29:00],
+    description: nil,
+    generation: nil,
+    started_at: ~N[2021-08-31 19:29:00],
+    status: nil,
+    type: nil
+  }
 
   defp create_task(_) do
     task = task_fixture()
@@ -35,7 +57,8 @@ defmodule Example16Web.TaskLiveTest do
 
       assert index_live
              |> form("#task-form", task: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank" # "is invalid"
+             # "is invalid"
+             |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         index_live
@@ -57,7 +80,8 @@ defmodule Example16Web.TaskLiveTest do
 
       assert index_live
              |> form("#task-form", task: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank" # "is invalid"
+             # "is invalid"
+             |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         index_live
@@ -97,7 +121,8 @@ defmodule Example16Web.TaskLiveTest do
 
       assert show_live
              |> form("#task-form", task: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank" # "is invalid"
+             # "is invalid"
+             |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         show_live

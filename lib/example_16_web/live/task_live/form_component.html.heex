@@ -25,16 +25,18 @@
     <%= text_input f, :status %>
     <%= error_tag f, :status %>
 
+    <div>All times are in the <%= @tz %> time zone. Format times as YYYY-MM-DD hh:mm:ss</div>
+
     <%= label f, :started_at %>
-    <%= datetime_local_input f, :started_at %>
+    <%= text_input f, :started_at, placeholder: "2021-01-01 14:00:00", value: as_local_datetime(@changeset, :started_at, @tz, naive: true) %>
     <%= error_tag f, :started_at %>
 
     <%= label f, :cancelled_at %>
-    <%= datetime_local_input f, :cancelled_at %>
+    <%= text_input f, :cancelled_at, placeholder: "2021-01-01 14:00:00", value: as_local_datetime(@changeset, :cancelled_at, @tz, naive: true) %>
     <%= error_tag f, :cancelled_at %>
 
     <%= label f, :completed_at %>
-    <%= datetime_local_input f, :completed_at %>
+    <%= text_input f, :completed_at, placeholder: "2021-01-01 14:00:00", value: as_local_datetime(@changeset, :completed_at, @tz, naive: true) %>
     <%= error_tag f, :completed_at %>
 
     <div>

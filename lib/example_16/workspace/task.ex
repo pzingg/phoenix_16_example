@@ -26,7 +26,16 @@ defmodule Example16.Workspace.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:type, :description, :generation, :status, :tz, :started_at, :cancelled_at, :completed_at])
+    |> cast(attrs, [
+      :type,
+      :description,
+      :generation,
+      :status,
+      :tz,
+      :started_at,
+      :cancelled_at,
+      :completed_at
+    ])
     |> validate_required([:type, :description, :generation, :status])
     |> ensure_timezone(@default_time_zone)
     |> local_to_utc([:started_at, :cancelled_at, :completed_at])
@@ -37,6 +46,7 @@ defmodule Example16.Workspace.Task do
     case Ecto.Changeset.get_field(changeset, :tz) do
       nil ->
         Ecto.Changeset.put_change(changeset, :tz, default_time_zone)
+
       _ ->
         changeset
     end
@@ -51,17 +61,21 @@ defmodule Example16.Workspace.Task do
     case Ecto.Changeset.get_field(changeset, field) do
       nil ->
         changeset
+
       %NaiveDateTime{} = dt_naive ->
         dt_utc =
           dt_naive
           |> Timex.to_datetime(tz)
           |> Timex.to_datetime("Etc/UTC")
+
         Logger.warn("converted naive #{dt_naive} with tz #{tz} to UTC #{dt_utc}")
         Ecto.Changeset.put_change(changeset, field, dt_utc)
+
       %DateTime{} = dt_local ->
         dt_utc =
           dt_local
           |> Timex.to_datetime("Etc/UTC")
+
         Ecto.Changeset.put_change(changeset, field, dt_utc)
     end
   end

@@ -13,7 +13,8 @@ defmodule Example16Web.TaskLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:task, Workspace.get_task!(id))}
+     |> assign(:task, Workspace.get_task!(id))
+     |> assign(:tz, "America/Los_Angeles")}
   end
 
   defp page_title(:show), do: "Show Task"

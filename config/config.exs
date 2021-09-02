@@ -10,7 +10,8 @@ import Config
 config :example_16,
   ecto_repos: [Example16.Repo],
   generators: [
-    binary_id: true, sample_binary_id: "01BADBEEFBADBEEFBADBEEFBAD"
+    binary_id: true,
+    sample_binary_id: "01BADBEEFBADBEEFBADBEEFBAD"
   ]
 
 # Configures database migration defaults
